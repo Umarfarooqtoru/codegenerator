@@ -55,8 +55,97 @@ class DeepSeekClient:
         return response.split("assistant:")[-1].strip()
     
     def _get_mock_code(self, prompt):
-        """Return a simple mock code for testing without the model"""
-        return f"""
+        """Return a sample code based on the prompt for testing without the model"""
+        # Check if HTML form is requested
+        if "html" in prompt.lower() and "form" in prompt.lower():
+            return f"""
+import streamlit as st
+
+def main():
+    st.title("HTML Sign Up Form")
+    
+    # Using HTML for the form with custom styling
+    html_form = '''
+    <style>
+        .form-container {{
+            max-width: 400px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin: 0 auto;
+        }}
+        .form-field {{
+            margin-bottom: 15px;
+        }}
+        .form-field label {{
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }}
+        .form-field input {{
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }}
+        .submit-button {{
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }}
+        .submit-button:hover {{
+            background-color: #45a049;
+        }}
+    </style>
+    
+    <div class="form-container">
+        <form>
+            <div class="form-field">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" placeholder="Enter your full name">
+            </div>
+            <div class="form-field">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email">
+            </div>
+            <div class="form-field">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Create a password">
+            </div>
+            <div class="form-field">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" placeholder="Confirm your password">
+            </div>
+            <button type="submit" class="submit-button">Sign Up</button>
+        </form>
+    </div>
+    '''
+    
+    st.markdown(html_form, unsafe_allow_html=True)
+    
+    # Simulating form submission with Streamlit components
+    with st.expander("Streamlit Form Alternative"):
+        with st.form("signup_form"):
+            st.text_input("Full Name")
+            st.text_input("Email Address")
+            st.text_input("Password", type="password")
+            st.text_input("Confirm Password", type="password")
+            submitted = st.form_submit_button("Sign Up")
+            if submitted:
+                st.success("Form submitted successfully!")
+
+if __name__ == "__main__":
+    main()
+"""
+        # Default mock code for other prompts
+        else:
+            return f"""
 import streamlit as st
 
 def main():
