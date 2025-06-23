@@ -1,0 +1,4 @@
+streamlit
+requests
+python-dotenv
+openai  # Assuming DeepSeek uses OpenAI's API or similar for model interaction
