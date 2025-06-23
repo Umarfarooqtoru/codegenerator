@@ -9,7 +9,12 @@ def generate_code(prompt, generated_code):
     Returns:
         str: A formatted application structure.
     """
-    app_structure = f"""
+    # If the generated code appears to contain HTML, extract it for better display
+    if "html_form" in generated_code or "<style>" in generated_code:
+        # Preserve the original code as is to maintain HTML formatting
+        return generated_code
+    else:
+        app_structure = f"""
 # Application generated from prompt: {prompt}
 
 import streamlit as st
@@ -25,4 +30,4 @@ def main():
 if __name__ == "__main__":
     main()
 """
-    return app_structure.strip()
+        return app_structure.strip()
